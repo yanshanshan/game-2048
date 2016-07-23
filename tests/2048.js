@@ -12,20 +12,20 @@ for (var i = 0; i < arr.length; i++) {
 }
 
 
-//var arrnew2 = []
-//for (var i = 0; i < arrnew.length; i++) {
-//    var curr = arrnew[i]
-//    var next = arrnew[i + 1]
-//
-//    if (curr == next) {
-//        arrnew2.push(curr + next)
-//        i++
-//    }else{
-//        arrnew2.push(curr)
-//    }
-//}
-//
-//console.log(arrnew2)
+var arrnew2 = []
+for (var i = 0; i < arrnew.length; i++) {
+    var curr = arrnew[i]
+    var next = arrnew[i + 1]
+
+    if (curr == next) {
+        arrnew2.push(curr + next)
+        i++
+    }else{
+        arrnew2.push(curr)
+    }
+}
+
+console.log(arrnew2)
 
 
 
