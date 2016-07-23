@@ -52,6 +52,10 @@ function getRandomEmptyNode(){
     return emptyNodes[randomIndex]
 }
 
+function getAllNodes(){
+    return Array.prototype.slice.call(document.getElementsByTagName('td'))
+}
+
 //2048程序初始化
 function init(){
     var num1 = getRandomNum()
@@ -64,9 +68,60 @@ function init(){
     node2.innerText = num2
 }
 
+function moveLeft(){
+    console.log('moveLeft')
+    var nodes = getAllNodes()
+    var row1 = nodes.slice(0, 4)
+    var row2 = nodes.slice(4, 8)
+    var row3 = nodes.slice(8, 12)
+    var row4 = nodes.slice(12, 16)
+
+    console.log(row1)
+
+    //var nodeArr = [];
+    //for(var i = 0; i < row1; i++){
+    //    if(row1[i] === row1[i + 1]) {
+    //        row1[i] = row1[1] + row1[i + 1];
+    //    } else if(row1[i] === row1[i + 2] && row1[i + 1] === '') {
+    //        row1[i] =row1[i] + row1[i + 2];
+    //    }
+    //
+    //}
+}
+
+function moveUp(){
+    console.log('moveUp')
+}
+
+function moveRight(){
+    console.log('moveRight')
+}
+
+function moveDown(){
+    console.log('moveDown')
+}
+
 //程序的入口函数
 function main(){
     init()
+
+
+    document.addEventListener('keyup', function(event){
+        var keyCode = event.keyCode
+
+        if(keyCode == 37){
+            moveLeft()
+        }else if(keyCode == 38){
+            moveUp()
+        }else if(keyCode == 39){
+            moveRight()
+        }else if(keyCode == 40){
+            moveDown()
+        }else{
+
+        }
+
+    }, false)
 }
 
 main()
