@@ -59,7 +59,7 @@ function getAllNodes() {
 //2048程序初始化
 function init() {
     var num, node
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < 8; i++) {
         num = getRandomNum()
         node = getRandomEmptyNode()
         node.innerText = num
@@ -216,6 +216,27 @@ function moveLeft() {
 
 function moveUp() {
     console.log('moveUp')
+    //获取所有节点
+    var nodes = getAllNodes()
+    //获取所有节点对应的数字，空字符串用0代替
+    var numbers = getNumbersFromNodes(nodes)
+
+
+
+    var row1 = document.getElementsByClassName('t1')
+    var row2 = document.getElementsByClassName('t2')
+    var row3 = document.getElementsByClassName('t3')
+    var row4 = document.getElementsByClassName('t4')
+    resetRow(row1)
+    resetRow(row2)
+    resetRow(row3)
+    resetRow(row4)
+
+
+
+    var randomEmptyNode = getRandomEmptyNode()
+    var randomNum = getRandomNum()
+    randomEmptyNode.innerText = randomNum
 
 }
 
@@ -295,7 +316,50 @@ console.log('row_list_r:'+ row_list_r)
 
 }
 
+//上移
+//function resetRow_u(row){
+//    var row_list = [], node, nodeValue, number
+//    for (var i = 0; i < row.length; i++) {
+//        node = row[i]
+//        nodeValue = node.innerText
+//        if (nodeValue === '') {
+//            continue
+//        } else {
+//            number = parseInt(nodeValue)
+//            row_list.push(number)
+//        }
+//
+//
+//    }
+//    console.log('row_list :'+ row_list)
+//
+//
+//    //执行加法操作
+//    var row_list2 = [], curr, next, sum
+//    for (var j = 0; j < row_list.length; j++) {
+//        curr = row_list[j]
+//        next = row_list[j + 1]
+//        if (curr === next) {
+//            sum = (curr + next)
+//            row_list2.push(sum)
+//            j++
+//        } else {
+//            row_list2.push(row_list[j])
+//        }
+//    }
+//
+//    //把结果设置回节点上
+//
+//    for (var k = 0; k < row.length; k++) {
+//        row[k].innerText = row_list2[k] || ''
+//    }
+//
+//}
+//
+//
 
+
+//上移
 
 
 
