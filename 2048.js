@@ -59,7 +59,7 @@ function getAllNodes() {
 //2048程序初始化
 function init() {
     var num, node
-    for (var i = 0; i < 8; i++) {
+    for (var i = 0; i < 2; i++) {
         num = getRandomNum()
         node = getRandomEmptyNode()
         node.innerText = num
@@ -96,7 +96,7 @@ function getGroup(numbers) {
 }
 
 //获取上移的4个数组（开始）
-function getGroup_u(numbers) {
+function getGroup_ud(numbers) {
     var group = []
     for (i = 0; i < 4; i++) {
         var single = []
@@ -115,7 +115,7 @@ function getTotalMoveFlag_u(numbers) {
     var flag = false
 
 
-    var group = getGroup_u(numbers)
+    var group = getGroup_ud(numbers)
     console.log('group2' + group)
 
     //对每一组数据，进行判断：是否具备左移条件，如果任意一组数具备左移动条件，则代表整体具有左移条件
@@ -132,6 +132,34 @@ function getTotalMoveFlag_u(numbers) {
 
 
 //获取上移的4个数组（结束）
+
+
+
+
+//下移功能添加代码（开始）
+function getTotalMoveFlag_d(numbers) {
+    var flag = false
+
+    //根据numbers，对16个数字分成4组
+    var group = getGroup_ud(numbers)
+
+    //对每一组数据，进行判断：是否具备右移条件，如果任意一组数具备右移动条件，则代表整体具有右移条件
+    for (var i = 0; i < group.length; i++) {
+        var singleFlag = getSingleMoveFlag_r(group[i])
+        if (singleFlag == true) {
+            flag = true
+            break
+        }
+    }
+
+    return flag
+}
+
+
+
+
+//下移功能添加代码（结束）
+
 
 
 function getTotalMoveFlag(numbers) {
@@ -316,6 +344,37 @@ function moveRight() {
 
 function moveDown() {
     console.log('moveDown')
+    //获取所有节点
+    var nodes = getAllNodes()
+    //获取所有节点对应的数字，空字符串用0代替
+    var numbers = getNumbersFromNodes(nodes)
+
+    var flag = getTotalMoveFlag_d(numbers)
+
+    //如果不符合移动条件，就直接返回，不做任何合并和生成新数字的操作
+    if (flag == false) {
+        return
+    }
+
+
+
+
+
+
+    //执行合并操作
+    var row1 = document.getElementsByClassName('t1')
+    var row2 = document.getElementsByClassName('t2')
+    var row3 = document.getElementsByClassName('t3')
+    var row4 = document.getElementsByClassName('t4')
+    resetRow_2(row1)
+    resetRow_2(row2)
+    resetRow_2(row3)
+    resetRow_2(row4)
+
+
+    var randomEmptyNode = getRandomEmptyNode()
+    var randomNum = getRandomNum()
+    randomEmptyNode.innerText = randomNum
 
 }
 
@@ -356,50 +415,7 @@ function resetRow_2(row) {
 
 }
 
-//上移
-//function resetRow_u(row){
-//    var row_list = [], node, nodeValue, number
-//    for (var i = 0; i < row.length; i++) {
-//        node = row[i]
-//        nodeValue = node.innerText
-//        if (nodeValue === '') {
-//            continue
-//        } else {
-//            number = parseInt(nodeValue)
-//            row_list.push(number)
-//        }
-//
-//
-//    }
-//    console.log('row_list :'+ row_list)
-//
-//
-//    //执行加法操作
-//    var row_list2 = [], curr, next, sum
-//    for (var j = 0; j < row_list.length; j++) {
-//        curr = row_list[j]
-//        next = row_list[j + 1]
-//        if (curr === next) {
-//            sum = (curr + next)
-//            row_list2.push(sum)
-//            j++
-//        } else {
-//            row_list2.push(row_list[j])
-//        }
-//    }
-//
-//    //把结果设置回节点上
-//
-//    for (var k = 0; k < row.length; k++) {
-//        row[k].innerText = row_list2[k] || ''
-//    }
-//
-//}
-//
-//
 
-
-//上移
 
 
 function resetRow(row) {
