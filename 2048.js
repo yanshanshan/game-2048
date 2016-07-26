@@ -91,9 +91,48 @@ function getGroup(numbers) {
         }
         group.push(single)
     }
-
+    console.log('group1:'+ group)
     return group
 }
+
+//获取上移的4个数组（开始）
+function getGroup_u(numbers) {
+    var group = []
+    for (i = 0; i < 4; i++) {
+        var single = []
+        for (k = i; k < 16; k += 4) {
+            single.push(numbers[k])
+        }
+        group.push(single)
+    }
+    console.log('group:----' + group)
+    return group
+
+}
+
+
+function getTotalMoveFlag_u(numbers) {
+    var flag = false
+
+
+    var group = getGroup_u(numbers)
+    console.log('group2' + group)
+
+    //对每一组数据，进行判断：是否具备左移条件，如果任意一组数具备左移动条件，则代表整体具有左移条件
+    for (var i = 0; i < group.length; i++) {
+        var singleFlag = getSingleMoveFlag(group[i])
+        if (singleFlag == true) {
+            flag = true
+            break
+        }
+    }
+
+    return flag
+}
+
+
+//获取上移的4个数组（结束）
+
 
 function getTotalMoveFlag(numbers) {
     var flag = false
@@ -138,20 +177,20 @@ function getSingleMoveFlag(numbers) {
     return flag
 }
 //自己
-function getSingleMoveFlag_r(numbers){
+function getSingleMoveFlag_r(numbers) {
     var flag = false
     var isEmpty = false
-    for(var k = numbers.length-1;k > -1;k--){
-        if(numbers[k] == numbers[k-1] && numbers[k] != 0){
+    for (var k = numbers.length - 1; k > -1; k--) {
+        if (numbers[k] == numbers[k - 1] && numbers[k] != 0) {
             flag = true
             break
         }
 
-        if(isEmpty && numbers[k] !== 0){
+        if (isEmpty && numbers[k] !== 0) {
             flag = true
             break
         }
-        if (numbers[k] == 0){
+        if (numbers[k] == 0) {
             isEmpty = true
         }
 
@@ -177,7 +216,6 @@ function getTotalMoveFlag_r(numbers) {
 
     return flag
 }
-
 
 
 //自己
@@ -220,9 +258,14 @@ function moveUp() {
     var nodes = getAllNodes()
     //获取所有节点对应的数字，空字符串用0代替
     var numbers = getNumbersFromNodes(nodes)
+    //根据数字，判断是否符合左移条件
+    var flag = getTotalMoveFlag_u(numbers)
+    //如果不符合移动条件，就直接返回，不做任何合并和生成新数字的操作
+    if (flag == false) {
+        return
+    }
 
-
-
+    //执行合并操作
     var row1 = document.getElementsByClassName('t1')
     var row2 = document.getElementsByClassName('t2')
     var row3 = document.getElementsByClassName('t3')
@@ -231,7 +274,6 @@ function moveUp() {
     resetRow(row2)
     resetRow(row3)
     resetRow(row4)
-
 
 
     var randomEmptyNode = getRandomEmptyNode()
@@ -256,7 +298,6 @@ function moveRight() {
     }
 
 
-
     var row1r = nodes.slice(0, 4)
     var row2r = nodes.slice(4, 8)
     var row3r = nodes.slice(8, 12)
@@ -265,7 +306,6 @@ function moveRight() {
     resetRow_2(row2r)
     resetRow_2(row3r)
     resetRow_2(row4r)
-
 
 
     var randomEmptyNode = getRandomEmptyNode()
@@ -280,26 +320,26 @@ function moveDown() {
 }
 
 
-function resetRow_2(row){
+function resetRow_2(row) {
     //获取节点值并转整数(右)
-    var row_list_r = [],node,nodeValue,number
-    for(var i = row.length-1;i > -1; i--){
+    var row_list_r = [], node, nodeValue, number
+    for (var i = row.length - 1; i > -1; i--) {
         node = row[i]
         nodeValue = node.innerText
-        if(nodeValue === ''){
+        if (nodeValue === '') {
             continue
         } else {
             number = parseInt(nodeValue)
             row_list_r.push(number)
         }
     }
-console.log('row_list_r:'+ row_list_r)
-        var row_list_r2 = [],curr_r,next_r
-    for(var k = 0; k<row_list_r.length; k++){
+    console.log('row_list_r:' + row_list_r)
+    var row_list_r2 = [], curr_r, next_r
+    for (var k = 0; k < row_list_r.length; k++) {
 
         curr_r = row_list_r[k]
-        next_r = row_list_r[k+1]
-        if(curr_r === next_r){
+        next_r = row_list_r[k + 1]
+        if (curr_r === next_r) {
             row_list_r2.push(curr_r + next_r)
             k++
         } else {
@@ -307,10 +347,10 @@ console.log('row_list_r:'+ row_list_r)
         }
 
     }
-    console.log('row_list_r2:'+ row_list_r2)
+    console.log('row_list_r2:' + row_list_r2)
 
-    for(var j = 0; j < 4; j++){
-        row[3-j].innerText = row_list_r2[j] ||  ''
+    for (var j = 0; j < 4; j++) {
+        row[3 - j].innerText = row_list_r2[j] || ''
     }
 
 
@@ -360,11 +400,6 @@ console.log('row_list_r:'+ row_list_r)
 
 
 //上移
-
-
-
-
-
 
 
 function resetRow(row) {
